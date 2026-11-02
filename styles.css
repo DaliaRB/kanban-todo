@@ -1,0 +1,254 @@
+/* police téléchargée dans fonts/ au lieu de google fonts (rgpd : google recevait l'ip des visiteurs) */
+@font-face {
+    font-family: 'Comfortaa';
+    src: url("fonts/comfortaa-variable.woff2") format("woff2");
+    font-weight: 300 700;
+    font-display: swap;
+}
+
+/* ===== BASE ===== */
+* { font-family: 'Comfortaa', sans-serif; margin: 0; box-sizing: border-box; }
+
+/* fond dégradé = l'océan, du clair au foncé */
+body {
+    min-height: 100vh;
+    background: linear-gradient(180deg, #a8d8f0 0%, #5bacd4 30%, #1a6fa8 65%, #0d4a7a 100%);
+}
+
+/* ===== HEADER ===== */
+header {
+    text-align: center;
+    padding: 20px;
+    color: white;
+    text-shadow: 0 2px 8px rgba(0,40,100,.5);
+}
+h1 { font-size: 1.5rem; margin-bottom: 8px; }
+header p { font-size: .85rem; opacity: .8; font-style: italic; }
+
+/* ===== NAV : recherche, filtre, tri ===== */
+nav {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 8px;
+    padding: 10px;
+    flex-wrap: wrap;
+    position: relative;
+}
+
+nav input, nav select {
+    background: rgba(255,255,255,.2);
+    border: 1px solid rgba(255,255,255,.4);
+    color: white;
+    padding: 7px 16px;
+    border-radius: 20px;
+    outline: none;
+    cursor: pointer;
+    font-size: .85rem;
+    font-family: 'Comfortaa', sans-serif;
+}
+nav input::placeholder { color: rgba(255,255,255,.7); }
+nav select option, nav select { color: white; }
+nav select option { background: #1a6fa8; }
+nav select:hover { background: rgba(255,255,255,.35); }
+
+/* ===== FORMULAIRE ===== */
+main { display: flex; gap: 16px; padding: 20px; align-items: flex-start; }
+
+/* effet verre : blanc transparent (rgba) + flou derrière */
+.card {
+    background: rgba(255,255,255,.18);
+    backdrop-filter: blur(6px);
+    border: 1px solid rgba(255,255,255,.3);
+    border-radius: 16px;
+    padding: 12px;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    width: 200px;
+    flex-shrink: 0;
+}
+
+.card input, .card select {
+    background: rgba(255,255,255,.2);
+    border: 1px solid rgba(255,255,255,.35);
+    color: white;
+    padding: 7px 10px;
+    border-radius: 10px;
+    outline: none;
+    font-size: .85rem;
+    font-family: 'Comfortaa', sans-serif;
+    width: 100%;
+}
+.card input::placeholder { color: rgba(255,255,255,.6); }
+.card select option { background: #1a6fa8; color: white; }
+
+.card button[type="submit"] {
+    background: rgba(100,220,160,.45);
+    border: 1px solid rgba(100,255,180,.5);
+    color: white;
+    padding: 8px;
+    border-radius: 10px;
+    cursor: pointer;
+    font-size: .85rem;
+    font-family: 'Comfortaa', sans-serif;
+}
+.card button[type="submit"]:hover { background: rgba(100,220,160,.7); }
+
+/* ===== COLONNES ===== */
+.kanban { display: flex; flex: 1; gap: 16px; align-items: flex-start; }
+
+.column {
+    flex: 1;
+    background: rgba(255,255,255,.15);
+    backdrop-filter: blur(6px);
+    border: 1px solid rgba(255,255,255,.3);
+    border-radius: 14px;
+    padding: 12px;
+    min-height: 300px;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+.column h2 {
+    text-align: center;
+    color: white;
+    font-size: .9rem;
+    margin-bottom: 4px;
+    text-shadow: 0 1px 4px rgba(0,0,0,.3);
+}
+
+/* ===== CARTES ===== */
+.task-card {
+    background: rgba(255,255,255,.22);
+    border: 1px solid rgba(255,255,255,.3);
+    border-radius: 12px;
+    padding: 10px;
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    color: white;
+}
+
+/* tâche done = carte verte */
+.task-card.done-card {
+    background: rgba(100,220,160,.42);
+    border-color: rgba(100,255,180,.5);
+}
+
+.task-title { font-size: .9rem; font-weight: 700; word-break: break-word; }
+.task-desc  { font-size: .78rem; opacity: .8; word-break: break-word; }
+
+.task-meta {
+    display: flex;
+    justify-content: space-between;
+    font-size: .73rem;
+    flex-wrap: wrap;
+    gap: 4px;
+    opacity: .9;
+}
+
+.task-btns { display: flex; gap: 5px; margin-top: 2px; flex-wrap: wrap; }
+.task-btns button {
+    border: 1px solid rgba(255,255,255,.3);
+    border-radius: 8px;
+    padding: 4px 7px;
+    cursor: pointer;
+    font-size: .7rem;
+    color: white;
+    font-family: 'Comfortaa', sans-serif;
+}
+
+/* couleur des boutons */
+.btn-statut  { flex: 1; background: rgba(100,180,255,.3); }
+.btn-statut:hover { background: rgba(100,180,255,.55); }
+.btn-todo    { background: rgba(255,180,80,.3); }
+.btn-todo:hover  { background: rgba(255,180,80,.55); }
+.btn-inpro   { background: rgba(160,100,255,.3); }
+.btn-inpro:hover { background: rgba(160,100,255,.55); }
+.btn-edit    { background: rgba(255,200,80,.3); }
+.btn-edit:hover  { background: rgba(255,200,80,.55); }
+.btn-del     { background: rgba(255,80,80,.3); }
+.btn-del:hover   { background: rgba(255,80,80,.55); }
+
+/* ===== FOOTER ===== */
+footer { text-align: center; padding: 16px; color: rgba(255,255,255,.6); font-size: .85rem; }
+
+/* ===== ERREURS, COMPTEURS, COLONNE VIDE ===== */
+.form-error {
+    min-height: 1em;
+    margin: 0;
+    font-size: .8rem;
+    color: #ffe3e3;
+    text-shadow: 0 1px 4px rgba(120,0,0,.6);
+}
+.count-line {
+    margin: -6px 0 6px;
+    text-align: center;
+    font-size: .8rem;
+    color: rgba(255,255,255,.85);
+}
+.count {
+    display: inline-block;
+    min-width: 1.6em;
+    padding: 0 .4em;
+    border-radius: 999px;
+    background: rgba(255,255,255,.25);
+    font-size: .8rem;
+}
+.empty {
+    margin-top: 12px;
+    text-align: center;
+    font-size: .85rem;
+    color: rgba(255,255,255,.75);
+}
+
+/* calendrier en mode sombre + jour choisi en vert */
+input[type="date"] {
+    color-scheme: dark;
+    accent-color: #64dca0;
+    cursor: pointer;
+}
+input[type="date"]::-webkit-calendar-picker-indicator {
+    cursor: pointer;
+    opacity: .85;
+}
+
+/* contour au clavier (outline: none l'enlevait) */
+input:focus-visible, select:focus-visible, button:focus-visible {
+    outline: 2px solid white;
+    outline-offset: 2px;
+}
+
+/* ===== TÉLÉPHONE : formulaire puis colonnes l'une sous l'autre ===== */
+@media (max-width: 768px) {
+    main    { flex-direction: column; align-items: stretch; padding: 12px; }
+    .card   { width: 100%; }
+    .kanban { flex-direction: column; align-items: stretch; }
+    .column { min-height: 0; }
+}
+
+/* hidden = caché, utilisé par le js */
+.hidden { display: none; }
+.form-title {
+    margin: 0;
+    font-size: .95rem;
+    text-align: center;
+    color: white;
+}
+#cancelBtn {
+    background: rgba(255,80,80,.35);
+    border: 1px solid rgba(255,255,255,.35);
+    color: white;
+    padding: 8px;
+    border-radius: 10px;
+    cursor: pointer;
+    font-size: .85rem;
+    font-family: 'Comfortaa', sans-serif;
+}
+#cancelBtn:hover { background: rgba(255,80,80,.6); }
+
+/* zone des cartes, vidée puis remplie par render() */
+.col-body { display: flex; flex-direction: column; gap: 8px; }
+.btn-todo, .btn-inpro { flex: 1; }
+.task-title, .task-desc { margin: 0; }
