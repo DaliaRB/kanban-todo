@@ -17,7 +17,7 @@ beforeEach(() => {
 })
 
 // petites fonctions pour aller plus vite
-function addTask(title, description = '', priority = '', dueDate = '') {
+function addTask(title, description = '', priority = 'low', dueDate = '') {
     document.querySelector('#titleInput').value = title
     document.querySelector('#descInput').value = description
     document.querySelector('#priorityInput').value = priority
@@ -46,8 +46,14 @@ test('description de plus de 200 caractères -> refusée', () => {
     expect(titles('colTodo')).toEqual([])
 })
 
+test('sans priorité -> refusée', () => {
+    addTask('Faire les courses', '', '')
+    expect(error()).toBe('Choisir une priorité.')
+    expect(titles('colTodo')).toEqual([])
+})
+
 test('date passée -> refusée', () => {
-    addTask('Tâche datée', '', '', '2020-01-01')
+    addTask('Tâche datée', '', 'low', '2020-01-01')
     expect(error()).toBe('Choisir une date future.')
 })
 
@@ -120,8 +126,8 @@ test('filtre par priorité', () => {
 
 test('tri par date limite : la plus proche en premier, sans date à la fin', () => {
     addTask('Sans date')
-    addTask('Mai', '', '', '2030-05-01')
-    addTask('Janvier', '', '', '2030-01-01')
+    addTask('Mai', '', 'low', '2030-05-01')
+    addTask('Janvier', '', 'low', '2030-01-01')
     const sort = document.querySelector('#sortSelect')
     sort.value = 'dueAsc'
     sort.dispatchEvent(new Event('change'))
@@ -151,8 +157,8 @@ test('tri récentes / anciennes', () => {
 })
 
 test('tri par date limite décroissante', () => {
-    addTask('Janvier', '', '', '2030-01-01')
-    addTask('Mai', '', '', '2030-05-01')
+    addTask('Janvier', '', 'low', '2030-01-01')
+    addTask('Mai', '', 'low', '2030-05-01')
     const sort = document.querySelector('#sortSelect')
     sort.value = 'dueDesc'; sort.dispatchEvent(new Event('change'))
     expect(titles('colTodo')).toEqual(['Mai', 'Janvier'])

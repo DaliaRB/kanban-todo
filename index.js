@@ -345,6 +345,11 @@ taskForm.addEventListener('submit', (e) => {
         titleInput.focus()
         return
     }
+    if (!priority) {  // required dans le html, mais on revérifie ici
+        showError('Choisir une priorité.')
+        priorInput.focus()
+        return
+    }
     if (dueDate && Date.parse(dueDate) < Date.now() - 86400000) {  // 86400000 ms = 24h -> aujourd'hui est accepté
         showError('Choisir une date future.')
         dueInput.focus()
