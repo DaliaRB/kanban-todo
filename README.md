@@ -17,4 +17,4 @@ npm install
 npm test
 ```
 
-Les tests (Jest + jsdom) vérifient l'ajout, les messages d'erreur, la faille XSS, le localStorage, la recherche, le filtre et le tri.
+Les tests (Jest + jsdom) vérifient l'ajout, les messages d'erreur, la faille XSS, le localStorage (y compris après un rechargement), les changements de statut, la modification, la suppression, la recherche, le filtre et les tris. Deux tests de qualité vérifient l'accessibilité (jest-axe) et que le HTML est valide (html-validate).

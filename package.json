@@ -10,7 +10,9 @@
     "testEnvironment": "jsdom"
   },
   "devDependencies": {
+    "html-validate": "8.18.2",
     "jest": "29.7.0",
+    "jest-axe": "9.0.0",
     "jest-environment-jsdom": "29.7.0"
   }
 }

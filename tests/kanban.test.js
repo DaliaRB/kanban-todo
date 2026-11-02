@@ -127,3 +127,70 @@ test('tri par date limite : la plus proche en premier, sans date à la fin', () 
     sort.dispatchEvent(new Event('change'))
     expect(titles('colTodo')).toEqual(['Janvier', 'Mai', 'Sans date'])
 })
+
+// ---------- localStorage au démarrage
+test('les tâches reviennent après un rechargement de la page (load)', () => {
+    addTask('Tâche gardée')
+    // on "recharge" : nouvelle page, même localStorage
+    document.body.innerHTML = body
+    jest.isolateModules(() => require('../index.js'))
+    expect(titles('colTodo')).toEqual(['Tâche gardée'])
+})
+
+// ---------- les autres tris
+test('tri récentes / anciennes', () => {
+    const now = jest.spyOn(Date, 'now')
+    now.mockReturnValue(1000); addTask('Première')
+    now.mockReturnValue(2000); addTask('Deuxième')
+    now.mockRestore()
+    const sort = document.querySelector('#sortSelect')
+    sort.value = 'createdDesc'; sort.dispatchEvent(new Event('change'))
+    expect(titles('colTodo')).toEqual(['Deuxième', 'Première'])
+    sort.value = 'createdAsc'; sort.dispatchEvent(new Event('change'))
+    expect(titles('colTodo')).toEqual(['Première', 'Deuxième'])
+})
+
+test('tri par date limite décroissante', () => {
+    addTask('Janvier', '', '', '2030-01-01')
+    addTask('Mai', '', '', '2030-05-01')
+    const sort = document.querySelector('#sortSelect')
+    sort.value = 'dueDesc'; sort.dispatchEvent(new Event('change'))
+    expect(titles('colTodo')).toEqual(['Mai', 'Janvier'])
+})
+
+// ---------- boutons retour, annuler, confirmation
+test('les boutons retour : Done -> In Progress -> To do', () => {
+    addTask('Aller-retour')
+    document.querySelector('#colTodo .btn-statut').click()     // -> In Progress
+    document.querySelector('#colDoing .btn-statut').click()    // -> Done
+    expect(titles('colDone')).toEqual(['Aller-retour'])
+    document.querySelector('#colDone .btn-inpro').click()      // ↩ In Progress
+    expect(titles('colDoing')).toEqual(['Aller-retour'])
+    document.querySelector('#colDoing .btn-todo').click()      // ↩ To Do
+    expect(titles('colTodo')).toEqual(['Aller-retour'])
+})
+
+test('Annuler remet le formulaire en mode création', () => {
+    addTask('Une tâche')
+    document.querySelector('#colTodo .btn-edit').click()
+    document.querySelector('#cancelBtn').click()
+    expect(document.querySelector('#formTitle').textContent).toBe('Créer une tâche')
+    expect(document.querySelector('#cancelBtn').classList.contains('hidden')).toBe(true)
+    expect(document.querySelector('#titleInput').value).toBe('')
+})
+
+test('si on répond Annuler à la confirmation, la tâche reste', () => {
+    addTask('À garder')
+    window.confirm = () => false
+    document.querySelector('#colTodo .btn-del').click()
+    expect(titles('colTodo')).toEqual(['À garder'])
+})
+
+test('compteurs et message « Aucune tâche »', () => {
+    expect(document.querySelector('#emptyTodo').classList.contains('hidden')).toBe(false)
+    addTask('Une')
+    addTask('Deux')
+    expect(document.querySelector('#countTodo').textContent).toBe('2')
+    expect(document.querySelector('#emptyTodo').classList.contains('hidden')).toBe(true)
+    expect(document.querySelector('#emptyDoing').classList.contains('hidden')).toBe(false)
+})
