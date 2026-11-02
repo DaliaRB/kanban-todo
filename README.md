@@ -1,5 +1,7 @@
 # My Kanban Board
 
+**En ligne / Live :** https://daliarb.github.io/kanban-todo/
+
 Tableau Kanban en HTML, CSS et JavaScript : créer une tâche, la faire passer de To do à In Progress puis Done, la modifier, la supprimer, chercher, filtrer par priorité et trier. Les tâches sont enregistrées dans le localStorage du navigateur.
 
 ## Lancer le projet
