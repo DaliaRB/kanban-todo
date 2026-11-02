@@ -1,0 +1,16 @@
+{
+  "name": "drb-todolist",
+  "version": "1.0.0",
+  "description": "Mon tableau Kanban en HTML, CSS et JavaScript (localStorage)",
+  "private": true,
+  "scripts": {
+    "test": "jest"
+  },
+  "jest": {
+    "testEnvironment": "jsdom"
+  },
+  "devDependencies": {
+    "jest": "29.7.0",
+    "jest-environment-jsdom": "29.7.0"
+  }
+}
